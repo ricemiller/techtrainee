@@ -2,7 +2,7 @@
 title: 'TechTrainee Logbook' 
 description: 'a blog (mostly) about security and technology'
 #url: 'http://joshgerdes.com/jekyll-uno'
-url: 'https://ricemiller.github.io/techtrainee/'
+url: 'https://ricemiller.github.io/'
 baseurl: '/techtrainee'
 timezone: 'Europe/London'
 # google_analytics: 'UA-XXXXXX-X'
