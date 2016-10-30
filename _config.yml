@@ -1,15 +1,14 @@
 # Site settings
 title: 'TechTrainee Logbook' 
 description: 'a blog (mostly) about security and technology'
-#url: 'http://joshgerdes.com/jekyll-uno'
-url: 'https://ricemiller.github.io/'
-baseurl: '/techtrainee'
+url: 'https://ricemiller.github.io/techtrainee'
+baseurl: '/techtrainee/'
 timezone: 'Europe/London'
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
 author:
-  name: 'Juanjo Mata de Acuña'
+  name: 'Juan José Mata de Acuña'
   email: juanjose.mata@protonmail.com
   twitter_username: 1OC_Mata
   #facebook_username: 
