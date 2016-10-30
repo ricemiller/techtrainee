@@ -1,0 +1,41 @@
+# Site settings
+title: 'TechTrainee Logbook' 
+description: 'a blog (mostly) about security and technology'
+#url: 'http://joshgerdes.com/jekyll-uno'
+url: ''
+baseurl: '/'
+timezone: 'Europe/London'
+# google_analytics: 'UA-XXXXXX-X'
+# disqus_shortname: 'your-disqus-name'
+
+author:
+  name: 'Juanjo Mata de Acuña'
+  email: juanjose.mata@protonmail.com
+  twitter_username: 1OC_Mata
+  #facebook_username: 
+  github_username: ricemiller
+  linkedin_username: juan-josé-mata-de-acuña-369732a7
+
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+        layout: 'post'
+
+# Build settings
+destination: _site
+paginate: 10
+permalink: /:year/:title/
+markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  # use Github Flavored Markdown
+  input: GFM
+  # do not replace newlines by <br>s
+  hard_wrap: false
+
+gems: ['jekyll-paginate']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
