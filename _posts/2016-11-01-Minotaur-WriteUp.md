@@ -56,10 +56,45 @@ The scan reveals the following:
 As a rule of thumb, an intruder will usually head to the lower hanging fruit, so we will address the web server first.
 
 ### Web Server
-<!--
-dirb with /usr/share/wordlists/dirb/big.txt -> wordpress discovered at /bull
-wpscan http://192.168.56.223/bull -> Slideshow Gallery < 1.4.7 Arbitrary File Upload
--->
+We find ourselves with a __default Apache2 welcome page__, so there is a high possibility that some subdomain contains something juicy for us.
+
+{% include image.html
+            img="images/minotaur/minotaur6.png"
+            title="Default Apache welcome page"
+            caption="It works!" %}
+
+In order to discover available subdirectories, we will use a tool called __*dirb*__.
+
+{% include image.html
+            img="images/minotaur/minotaur7.png"
+            title="dirb http://192.168.56.223 /usr/share/wordlists/dirb/big.txt"
+            caption="Using dirb to discover new paths inside the web application" %}
+
+We find out a new web running under the */bull* path, so let's check it out.
+
+### WordPress
+We found a blog about bulls! Pretty appropriate, regarding the name of the machine.
+
+{% include image.html
+            img="images/minotaur/minotaur8.png"
+            title="Bull Blog"
+            caption="Blog powered by WordPress" %}
+
+The web hosted appears to be a __WordPress blog__, so __*wpscan*__ will make wonders out of this.
+
+{% include image.html
+            img="images/minotaur/minotaur9.png"
+            title="wpscan http://192.168.56.223/bull"
+            caption="Scanning the WordPress application" %}
+
+Between all the vulnerabilities found, one of them seems to allow uploading files (see below), so maybe we could try a reverse TCP connection.
+
+{% include image.html
+            img="images/minotaur/minotaur10.png"
+            title="Slideshow Gallery < 1.4.7 Arbitrary File Upload"
+            caption="Vulnerability we will focus on" %}
+
+
 
 ## Intrusion
 
