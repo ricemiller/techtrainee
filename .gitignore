@@ -1,7 +1,11 @@
+_config-local.yml
 _site
 .sass-cache
 .jekyll-metadata
 *.sublime-project
 *.sublime-workspace
 .DS_Store
+<<<<<<< HEAD
 _config-local.yml
+=======
+>>>>>>> gh-pages-local
