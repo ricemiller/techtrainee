@@ -6,16 +6,16 @@ tags: [pentesting,writeup,vulnhub,minotaur]
 This week we will take up another [vulnhub](https://www.vulnhub.com) machine. Not very high skill levels will be required, but knowing the proper tools to use will be key for solving this challenge.
 
 ## Preparation
-As with [the previous one](/2016/SickOS1.1-WriteUp/), we just have to [download the virtual machine](https://www.vulnhub.com/entry/sectalks-bne0x00-minotaur,139/) and add the resource to our hypervisor. Unfortunately, __this time things may not work just out of the box__. As *Minotaur* description states, __the machine must be inside the 192.168.56.0/24 network__, so I'm afraid that VMWare Player won't be valid because some advanced settings must be changed.
+As with [the previous one](/2016/SickOS1.1-WriteUp/), we have to [download the virtual machine](https://www.vulnhub.com/entry/sectalks-bne0x00-minotaur,139/) and add the resource to our hypervisor. Unfortunately, __this time things may not work just out of the box__. As *Minotaur* description states, __the machine must be inside the 192.168.56.0/24 network__, so I'm afraid that VMWare Player won't be valid because some advanced settings must be changed.
 
-On __VMWare Workstation__ (don't panic __VirtualBox users__, there is also a solution for you creating a new NAT network on *Preferences > Network > NAT Networks* and editing the __Network CIDR__), we go to *Edit > Virtual Network Editor* (sudo password may be asked) and select *Add Network*. We select __NAT Network__ and *Add*.
+On __VMWare Workstation__ (don't panic __VirtualBox users__, there is also a solution for you creating a new NAT network on *Preferences > Network > NAT Networks* and editing the __Network CIDR__), we go to *Edit > Virtual Network Editor* (sudo password may be asked) and choose **Add Network**. We select __NAT__ and press __Add__.
 
 {% include image.html
             img="images/minotaur/minotaur1.png"
             title="Settings for the new network"
             caption="Settings for the new network" %}
 
-The only remaining thing to do is __changing the *subnet IP* and the *gateway IP*__, this last one after clicking on *NAT Settings* (see below).
+The only remaining thing to do is changing the **subnet IP** and the **gateway IP**, this last one after clicking on **NAT Settings** (see below).
 
 
 {% include image.html
@@ -50,12 +50,12 @@ The scan reveals the following:
 
 * OS: Linux 3.2 - 4.4, probably __Ubuntu__
 * An __SSH server__ is running (does not seem a version with disclosed vulnerabilities *yet*)
-* __Apache 2.4.7 running on port 80__
+* __Apache 2.4.7__ running on __port 80__
 * __vsFTPd 2.0.8 service__ with allowed anonymous access, also no quick vulnerabilities found
 
 As a rule of thumb, an intruder will usually head towards the lower hanging fruits, so we will address to the web server first.
 
-### Web Server
+### Web server
 We find ourselves with a __default Apache2 welcome page__, so there is a high possibility that some subdomain contains juicy things for us.
 
 {% include image.html
@@ -94,7 +94,7 @@ Between all the vulnerabilities found, one of them seems to allow uploading file
             title="Slideshow Gallery < 1.4.7 Arbitrary File Upload"
             caption="Vulnerability we will focus on" %}
 
-### User and Password Obtention
+### User and password obtention
 Following with __*wpscan*__, now it is time to obtain users. The _enumeration_ option will return us an username called __bully__.
 
 {% include image.html
@@ -135,8 +135,8 @@ Whatever shell you may upload, you will find it under the URL __*http://192.168.
 #### __Note:__
 From here on, I used a __reverse TCP connection__ to the terminal, as the web shell was a bit uncomfortable. Moreover, __the web shell does not keep context between commands__, so changing directories and other actions were not possible.
 
-### First flag!
-An easy flag found on the root of the web application. I happened to come across it just by jumping folders back and forth.
+### First flag
+An easy flag found on the root of the web application. I happened to come across it just by jumping directories back and forth.
 
 {% include image.html
             img="images/minotaur/minotaur16.png"
@@ -158,7 +158,7 @@ Continuing with our inspection from this unprivileged user (*www-data*), we enco
             caption="Getting the shadow file" %}
 
 
-### Getting passwords with john
+### Cracking passwords with john
 With this shadow file and the already accessible _/etc/passwd_ we will compose a unique file (__unshadow passwd shadow > crackme__) for our friend __*John the Ripper*__ and see if we can get some more credentials.
 
 {% include image.html
@@ -169,7 +169,7 @@ With this shadow file and the already accessible _/etc/passwd_ we will compose a
 The previously crafted wordlist did not make the trick this time, but john's default mode got us __two more passwords__ (maybe it would have spat more afterwards, but actually I got the final flag before getting more results).
 
 ### SSH access and privilege escalation
-Now we can access with both users and have some more fun. The user __heffer__ did not show anything special at first, but __minotaur__ surely did. Viewing the __sudo permission__ this user has we will discover that __we already have full access to root__.
+Now we can access with both users and have some more fun. The user __heffer__ did not show anything special at first, but __minotaur__ surely did. Looking at the __sudo permissions__ this user has, we will discover that __we already have full access to root__.
 
 {% include image.html
             img="images/minotaur/minotaur20.png"
@@ -177,7 +177,7 @@ Now we can access with both users and have some more fun. The user __heffer__ di
             caption="My name is minotaur, but my friends call me root" %}
 
 
-## Final Flag
+## Final flag
 The flag is now ours to take now.
 
 
@@ -187,7 +187,9 @@ The flag is now ours to take now.
             caption="Final flag of the challenge" %}
 
 ## Conclusions
-In my opinion this wasn't a very instructive machine. The whole challenge is basically about using the proper wordlist (with __*dirb*__, with __*wpscan*__, with __*john*__...), so my last feeling is that it was more a matter of being lucky than anything else. Of course that you need to know the tools in order to succeed, and of course that it is important to know when to use the right wordlist, but I sincerely don't have the impression of getting much of an outcome from this machine. Still, it is always good to keep on practising and face any variety of scenarios, so neither do I consider it a waste or time.
+In my opinion this wasn't a very instructive machine. The whole challenge is basically about using the proper wordlist (with __*dirb*__, with __*wpscan*__, with __*john*__...), so my last feeling is that it was more a matter of being lucky than anything else. Of course that you need to know the tools in order to succeed, and of course that it is important to know when to use the right wordlist, but I sincerely don't have the impression of getting much of an outcome from this machine. 
+
+Still, it is always good to keep on practising and face any variety of scenarios, so I will not consider it a waste of time either.
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/KEfzmf8CiAs" frameborder="0" allowfullscreen="1"></iframe>
