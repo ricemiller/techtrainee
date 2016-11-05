@@ -1,6 +1,6 @@
 ---
 title:      "Minotaur WriteUp"
-date:       2016-11-01 19:39:00
+date:       2016-11-05 12:39:00
 tags: [pentesting,writeup,vulnhub,minotaur]
 ---
 This week we will take up another [vulnhub](https://www.vulnhub.com) machine. Not very high skill levels will be required, but knowing the proper tools to use will be key for solving this challenge.
